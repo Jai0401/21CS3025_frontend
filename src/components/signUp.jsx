@@ -1,33 +1,53 @@
-import { useState} from "react";
+import { useState } from "react";
 import axios from 'axios';
 
-
 function SignUp() {
-    const {firstname, setfirstname} = useState('example');
-    const {lastname, setlastname} = useState('example');
-    const {email, setemail} = useState('example@gmail.com');
-    const {password, setpassword} = useState('1234');
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    
     function signUp() {
-        axios.post('http://localhost:3030/signup',{Body:
-            {
-                "firstname": firstname,
-                "lastname": lastname,
-                "email": email,
-                "password": password
-            }}).then((res)=> console.log(res.data));
+        axios.post('http://localhost:3030/signup', {
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            password: password
+        })
+        .then((res) => console.log(res.data))
+        .catch((err) => console.error(err));
     }
+
     return (
-      <>
-       <h1>SignUp</h1>
-       <input type="text" placeholder="firstname" onChange={()=>setfirstname()}></input>
-       <input type="text" placeholder="lastnanme" onChange={()=>setlastname()}></input>
-       <input type="text" placeholder="email" onChange={()=>setemail()}></input>
-       <input type="email" placeholder="password" onChange={()=>setpassword()}></input>
-       <button onClick={signUp}>Submit</button>
-      </>
-    )
-  }
-  
-  export default SignUp;
+        <>
+            <h1>SignUp</h1>
+            <input
+                type="text"
+                placeholder="firstname"
+                value={firstname}
+                onChange={(e) => setFirstname(e.target.value)}
+            />
+            <input
+                type="text"
+                placeholder="lastname"
+                value={lastname}
+                onChange={(e) => setLastname(e.target.value)}
+            />
+            <input
+                type="text"
+                placeholder="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+                type="password"
+                placeholder="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <button onClick={signUp}>Submit</button>
+        </>
+    );
+}
+
+export default SignUp;
